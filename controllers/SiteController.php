@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\Telemetry;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -84,6 +85,16 @@ class SiteController extends Controller
         return $this->render('login', [
             'model' => $model,
         ]);
+    }
+
+    /**
+     * Telemetry action.
+     *
+     * @return string
+     */
+    public function actionTelemetry()
+    {
+        return $this->render('telemetry', ['$model' => new Telemetry()]);
     }
 
     /**
