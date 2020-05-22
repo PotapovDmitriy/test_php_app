@@ -68,4 +68,23 @@ class Telemetry extends \yii\db\ActiveRecord
     {
         return self::find()->all();
     }
+
+
+    /**
+     * Add new user to database
+     * @param string $name ,
+     *
+     * @param string $height
+     * @param string $weight
+     */
+
+    public static function addTelemetry($name, $height, $weight)
+    {
+        $currentW = new Telemetry();
+        $currentW->id = null;
+        $currentW->name = $name;
+        $currentW->weight = $weight;
+        $currentW->height = $height;
+        $currentW->save(false);
+    }
 }
