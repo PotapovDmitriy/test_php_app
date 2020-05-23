@@ -48,6 +48,9 @@ if (YII_ENV_DEV) {
     $config['modules']['gii'] = [
         'class' => 'yii\gii\Module',
     ];
+    $config['modules']['webSocket'] = [
+        'class' => 'app\modules\webSocket\Module',
+    ];
 }
 
 return $config;

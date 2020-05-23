@@ -1,3 +1,8 @@
+<?php
+    use app\modules\webSocket\assets\TelemetryAsset;
+    TelemetryAsset::register($this);
+    //$this->registerJsFile('../modules/webSocket/assets/list.js');
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -76,45 +81,9 @@
     </style>
 </head>
 <body>
-
 <ul id="messages"></ul>
-<h1>Формат ввода данных: "Name weight height"</h1>
-<h2>Пример: "Potapov 65 178"</h2>
+<h1>Введите телеметрию</h1>
 <input type="text" name="message">
-
-<a href="http://localhost:8500/index.php?r=site%2Fadd">BACK</a>
-
-<script>
-    console.log("I'm fine");
-
-    var ws = new WebSocket("ws://localhost:1337/broadcast");
-    var list = document.getElementById("messages");
-    var input = document.querySelector('input[name=message]');
-
-    // append all received messages to #messages
-    ws.addEventListener("message", function(e) {
-        console.log(e.data);
-
-        var listItem = document.createElement('li');
-        listItem.className = 'delayed';
-        listItem.textContent = e.data;
-
-        list.append(listItem);
-
-        while (list.children.length > 5) {
-            list.removeChild(list.firstChild);
-        }
-    });
-
-    input.addEventListener('keyup', function (e) {
-        if (e.keyCode === 13) {
-            e.preventDefault();
-
-            ws.send(e.target.value);
-            e.target.value = "";
-            e.target.focus();
-        }
-    });
-</script>
 </body>
+<script src=""></script>
 </html>

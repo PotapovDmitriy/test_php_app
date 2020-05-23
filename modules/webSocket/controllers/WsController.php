@@ -1,14 +1,11 @@
 <?php
+namespace app\modules\webSocket\controllers;
 
-
-namespace app\commands;
-
+use Amp\Http\Server\RequestHandler\CallableRequestHandler;
+use Amp\Http\Status;
 use Amp\Loop;
-use Amp\Socket\SocketException;
 use Amp\Websocket\Server\Websocket;
-use app\models\Telemetry;
-use PHPUnit\Util\Printer;
-use wsHandler;
+use app\modules\telemetry\models\Telemetry;
 use yii\console\Controller;
 use Amp\Http\Server\HttpServer;
 use Amp\Http\Server\Router;
@@ -28,7 +25,6 @@ use Amp\Websocket\Message;
 use Amp\Websocket\Server\ClientHandler;
 use Amp\Websocket\Server\Endpoint;
 use function Amp\call;
-use function GuzzleHttp\Psr7\str;
 
 
 /**
@@ -41,14 +37,13 @@ class WsController extends Controller
      */
     public $ws;
 
-    public function init()
+    public  function  init()
     {
         parent::init();
-        $this->ws = new Websocket(new wsHandlerV2());
+        $this -> ws = new Websocket(new wsHandlerV2());
     }
 
-    public function actionRun()
-    {
+    public function actionRun(){
         Loop::run(function (): Promise {
             $sockets = [
                 SocketServer::listen('0.0.0.0:1337')
@@ -56,7 +51,8 @@ class WsController extends Controller
 
             $router = new Router;
             $router->addRoute('GET', '/broadcast', $this->ws);
-            $router->setFallback(new DocumentRoot(__DIR__ . '/../web/public'));
+            //$router->addRoute('GET', '/', new DocumentRoot(__DIR__ . '/../views/ws/'));
+            //$router->setFallback(new DocumentRoot(__DIR__ . '/../views/ws/'));
 
             $logHandler = new StreamHandler(getStdout());
             $logHandler->setFormatter(new ConsoleFormatter);
@@ -94,7 +90,7 @@ class wsHandlerV2 implements ClientHandler
         return call(function () use ($endpoint, $client): \Generator {
             while ($message = yield $client->receive()) {
                 assert($message instanceof Message);
-                Telemetry::AddTelemetry(urldecode(yield $message->buffer()));
+                Telemetry::AddTelemetry(urlencode(yield $message->buffer()));
                 $endpoint->broadcast(sprintf('%d: %s', $client->getId(), yield $message->buffer()));
             }
         });

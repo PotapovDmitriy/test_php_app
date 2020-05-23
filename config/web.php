@@ -81,6 +81,11 @@ if (YII_ENV_DEV) {
     $config['modules']['users'] = [
         'class' => 'app\modules\users\Module',
     ];
+    $config['modules']['webSocket'] = [
+        'class' => 'app\modules\webSocket\Module',
+    ];
+
+
 
 }
 
