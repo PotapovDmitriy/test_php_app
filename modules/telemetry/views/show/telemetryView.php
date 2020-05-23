@@ -1,9 +1,11 @@
 <?php
 
+///* @var $this yii\web\View */
 /* @var $this yii\web\View */
-/* @var $model app\models\Telemetry */
 
-use app\models\Telemetry;
+/* @var $model app\modules\telemetry\models\Telemetry */
+
+use app\modules\telemetry\models\Telemetry;
 use yii\helpers\Html;
 
 $this->title = 'Telemetry';
@@ -18,13 +20,15 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <table border="2px" cellpadding="10">
         <tr>
-            <td class="cell">Имя</td>
-            <td>Рост</td>
-            <td>Вес</td>
+            <td>Time</td>
+            <td>Telemetry</td>
         </tr>
-        <?php $rows =  Telemetry::findAllTelemetry();
+        <?php $rows = Telemetry::findAllTelemetry();
         foreach ($rows as $row): ?>
-            <tr> <td>  <?php echo $row->name; ?>  </td>   <td>  <?php echo $row->height; ?>  </td>  <td>  <?php echo $row->weight; ?>  </td> </tr>
+            <tr>
+                <td>  <?php echo $row->time; ?>  </td>
+                <td>  <?php echo $row->telemetry_string; ?>  </td>
+            </tr>
         <?php endforeach; ?>
     </table>
 

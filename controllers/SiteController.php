@@ -87,15 +87,7 @@ class SiteController extends Controller
         ]);
     }
 
-    /**
-     * Telemetry action.
-     *
-     * @return string
-     */
-    public function actionTelemetry()
-    {
-        return $this->render('telemetry', ['$model' => new Telemetry()]);
-    }
+
 
     /**
      * Telemetry action.

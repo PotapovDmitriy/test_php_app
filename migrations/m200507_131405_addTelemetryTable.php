@@ -14,9 +14,8 @@ class m200507_131405_addTelemetryTable extends Migration
     {
         $this->createTable('telemetry', [
             'id' => $this->primaryKey(),
-            'name' => $this->string(),
-            'height' => $this->integer(),
-            'weight' => $this->integer()
+            'time' => $this->string(),
+            'telemetry_string' => $this->string()
         ]);
     }
 

@@ -41,13 +41,14 @@ class WsController extends Controller
      */
     public $ws;
 
-    public  function  init()
+    public function init()
     {
         parent::init();
-        $this -> ws = new Websocket(new wsHandlerV2());
+        $this->ws = new Websocket(new wsHandlerV2());
     }
 
-    public function actionRun(){
+    public function actionRun()
+    {
         Loop::run(function (): Promise {
             $sockets = [
                 SocketServer::listen('0.0.0.0:1337')
@@ -93,18 +94,8 @@ class wsHandlerV2 implements ClientHandler
         return call(function () use ($endpoint, $client): \Generator {
             while ($message = yield $client->receive()) {
                 assert($message instanceof Message);
-                $keywords = preg_split("/[\s,]+/", urldecode(yield $message->buffer()));
-                if (count($keywords) < 4 ){
-
-                    $name = $keywords[0];
-                    $w = $keywords[1];
-                    $h = $keywords[2];
-                    Telemetry::AddTelemetry($name, $h, $w);
-                    $endpoint->broadcast(sprintf('%d: %s', $client->getId(), yield $message->buffer()));
-                }
-                else {
-                    $endpoint->broadcast(sprintf("Ошибка в заполнении поля"));
-                }
+                Telemetry::AddTelemetry(urldecode(yield $message->buffer()));
+                $endpoint->broadcast(sprintf('%d: %s', $client->getId(), yield $message->buffer()));
             }
         });
     }

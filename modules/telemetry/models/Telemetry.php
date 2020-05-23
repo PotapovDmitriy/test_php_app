@@ -1,6 +1,6 @@
 <?php
 
-namespace app\models;
+namespace app\modules\telemetry\models;
 
 use Yii;
 
@@ -8,9 +8,8 @@ use Yii;
  * This is the model class for table "telemetry".
  *
  * @property int $id
- * @property string|null $name
- * @property int|null $height
- * @property int|null $weight
+ * @property mixed|null telemetry_string
+ * @property false|mixed|string|null time
  */
 class Telemetry extends \yii\db\ActiveRecord
 {
@@ -29,8 +28,7 @@ class Telemetry extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['height', 'weight'], 'integer'],
-            [['name'], 'string', 'max' => 255],
+            [['telemetry_string'], 'string', 'max' => 255],
         ];
     }
 
@@ -41,25 +39,14 @@ class Telemetry extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'name' => 'Name',
-            'height' => 'Height',
-            'weight' => 'Weight',
+            'time' => 'Time',
+            'telemetry_string' => 'Telemetry_string',
         ];
     }
 
-    /**
-     * Finds info by name
-     *
-     * @param string $name
-     * @return static|null
-     */
-    public static function findByUsername($name)
-    {
-        return self::findOne(['telemetry.name' => $name]);
-    }
 
     /**
-     * Finds user by username
+     * Find all telemetry metrics
      *
      *
      * @return Telemetry[]
@@ -72,19 +59,15 @@ class Telemetry extends \yii\db\ActiveRecord
 
     /**
      * Add new user to database
-     * @param string $name ,
-     *
-     * @param string $height
-     * @param string $weight
+     * @param $telemetry_string
      */
 
-    public static function addTelemetry($name, $height, $weight)
+    public static function addTelemetry($telemetry_string)
     {
         $currentW = new Telemetry();
         $currentW->id = null;
-        $currentW->name = $name;
-        $currentW->weight = $weight;
-        $currentW->height = $height;
+        $currentW->time = date("l dS of F Y h:I:s A");
+        $currentW->telemetry_string = $telemetry_string;
         $currentW->save(false);
     }
 }
