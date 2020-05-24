@@ -23,8 +23,8 @@ $this->params['breadcrumbs'][] = $this->title;
             <td>Time</td>
             <td>Telemetry</td>
         </tr>
-        <?php $rows = Telemetry::findAllTelemetry();
-        foreach ($rows as $row): ?>
+        <?php
+        foreach ($data as $row): ?>
             <tr>
                 <td>  <?php echo $row->time; ?>  </td>
                 <td>  <?php echo $row->telemetry_string; ?>  </td>

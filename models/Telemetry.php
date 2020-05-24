@@ -1,6 +1,6 @@
 <?php
 
-namespace app\modules\telemetry\models;
+namespace app\models;
 
 use Yii;
 
@@ -57,17 +57,5 @@ class Telemetry extends \yii\db\ActiveRecord
     }
 
 
-    /**
-     * Add new user to database
-     * @param $telemetry_string
-     */
 
-    public static function addTelemetry($telemetry_string)
-    {
-        $currentW = new Telemetry();
-        $currentW->id = null;
-        $currentW->time = date("l dS of F Y h:I:s A");
-        $currentW->telemetry_string = $telemetry_string;
-        $currentW->save(false);
-    }
 }

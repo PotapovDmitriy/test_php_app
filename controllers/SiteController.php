@@ -68,15 +68,7 @@ class SiteController extends Controller
 
 
 
-    /**
-     * Telemetry action.
-     *
-     * @return string
-     */
-    public function actionAdd()
-    {
-        return $this->render('add');
-    }
+
 
 
     /**
