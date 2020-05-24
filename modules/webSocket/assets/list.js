@@ -1,31 +1,35 @@
-$(document).ready(function() {
-    console.log("I'm fine");
+console.log("I'm fine");
 
-    var ws = new WebSocket("ws://localhost:1337/broadcast");
-    var list = document.getElementById("messages");
-    var input = document.querySelector('input[name=message]');
+var ws = new WebSocket("ws://localhost:1337/broadcast");
+var list = document.getElementById("messages");
+var input = document.querySelector('input[name=message]');
 
-    ws.addEventListener("message", function (e) {
-        console.log(e.data);
+ws.addEventListener("message", function (e) {
+    console.log(e.data);
 
-        var listItem = document.createElement('li');
-        listItem.className = 'delayed';
-        listItem.textContent = e.data;
 
-        list.append(listItem);
+    var listItem = document.createElement('li');
+    listItem.className = 'delayed';
+    listItem.textContent = e.data;
 
-        while (list.children.length > 5) {
-            list.removeChild(list.firstChild);
-        }
-    });
+    list.append(listItem);
 
-    input.addEventListener('keyup', function (e) {
-        if (e.keyCode === 13) {
-            e.preventDefault();
+    while (list.children.length > 5) {
+        list.removeChild(list.firstChild);
+    }
+});
 
+input.addEventListener('keyup', function (e) {
+    if (e.keyCode === 13) {
+
+        e.preventDefault();
+        if (e.target.value.length > 0 ){
             ws.send(e.target.value);
             e.target.value = "";
             e.target.focus();
+        }else{
+            alert("Поле не должно быть пустым")
         }
-    });
+
+    }
 });

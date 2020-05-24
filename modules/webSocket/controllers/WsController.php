@@ -73,6 +73,7 @@ class wsHandlerV2 implements ClientHandler
 
     private const ALLOWED_ORIGINS = [
         'http://localhost:1337',
+        'http://localhost:8500',
         'http://0.0.0.0:1337',
     ];
 
@@ -90,7 +91,7 @@ class wsHandlerV2 implements ClientHandler
         return call(function () use ($endpoint, $client): \Generator {
             while ($message = yield $client->receive()) {
                 assert($message instanceof Message);
-                Telemetry::AddTelemetry(urlencode(yield $message->buffer()));
+                Telemetry::AddTelemetry(yield $message->buffer());
                 $endpoint->broadcast(sprintf('%d: %s', $client->getId(), yield $message->buffer()));
             }
         });

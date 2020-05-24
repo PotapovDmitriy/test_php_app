@@ -6,7 +6,7 @@ use yii\web\AssetBundle;
 
 class TelemetryAsset extends AssetBundle
 {
-    public $basePath = 'app\modules\webSocket\assets';
+    public $sourcePath = '@app/modules/webSocket/assets';
     public $js = [
         'list.js'
     ];
