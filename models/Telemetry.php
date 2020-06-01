@@ -33,6 +33,20 @@ class Telemetry extends \yii\db\ActiveRecord
     }
 
     /**
+     * @param bool $insert
+     * @return bool
+     */
+    public function beforeSave($insert)
+    {
+
+        if (parent::beforeSave($insert)) {
+            $this->time = date("l dS of F Y h:I:s A");
+            return true;
+        }
+        return false;
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function attributeLabels()
@@ -43,8 +57,7 @@ class Telemetry extends \yii\db\ActiveRecord
             'telemetry_string' => 'Telemetry_string',
         ];
     }
-
-
+    
     /**
      * Find all telemetry metrics
      *
@@ -55,7 +68,4 @@ class Telemetry extends \yii\db\ActiveRecord
     {
         return self::find()->all();
     }
-
-
-
 }
