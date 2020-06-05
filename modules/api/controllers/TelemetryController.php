@@ -42,6 +42,7 @@ class TelemetryController extends \yii\rest\Controller
 
         if($telemetry->load($data,'' ) && $telemetry->validate()){
             if($telemetry->save()){
+                Yii::$app->response->headers->add('Location', 'http://localhost:8500/api/telemetry/create');
                 Yii::$app->response->setStatusCode(201);
             }
         }

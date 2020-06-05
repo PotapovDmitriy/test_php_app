@@ -15,8 +15,12 @@ class ShowController extends Controller
      */
     public function actionList()
     {
-        $models = Telemetry::findAllTelemetry();
+        $dataProvider = new ActiveDataProvider([
+            'query' => \app\models\Telemetry::find()
+        ]);
 
-        return  $this->render('telemetryView', ['data' => $models]);
+//        $models = Telemetry::findAllTelemetry();
+
+        return  $this->render('telemetryView', ['data' => $dataProvider]);
     }
 }

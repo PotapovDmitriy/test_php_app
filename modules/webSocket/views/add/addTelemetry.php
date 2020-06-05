@@ -4,10 +4,13 @@ use app\modules\webSocket\assets\TelemetryAsset;
 
 TelemetryAsset::register($this);
 //$this->registerJsFile('../modules/webSocket/assets/list.js');
+$this->title = 'Add new Telemetry';
+$this->params['breadcrumbs'][] = $this->title;
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
     <meta charset="utf-8">
     <title>Broadcast Example</title>
     <style>
