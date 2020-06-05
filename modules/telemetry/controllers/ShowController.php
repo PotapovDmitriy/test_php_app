@@ -1,4 +1,5 @@
 <?php
+
 namespace app\modules\telemetry\controllers;
 
 
@@ -19,8 +20,7 @@ class ShowController extends Controller
             'query' => \app\models\Telemetry::find()
         ]);
 
-//        $models = Telemetry::findAllTelemetry();
 
-        return  $this->render('telemetryView', ['data' => $dataProvider]);
+        return $this->render('telemetryView', ['data' => $dataProvider]);
     }
 }

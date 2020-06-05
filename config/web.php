@@ -26,7 +26,7 @@ $config = [
             'class' => 'yii\caching\FileCache',
         ],
         'user' => [
-            'identityClass' => 'app\modules\users\models\User',
+            'identityClass' => 'app\models\User',
             'enableAutoLogin' => true,
         ],
         'errorHandler' => [
@@ -94,18 +94,7 @@ if (YII_ENV_DEV) {
         // uncomment the following to add your IP if you are not connecting from localhost.
         //'allowedIPs' => ['127.0.0.1', '::1'],
     ];
-//    $config['modules']['telemetry'] = [
-//        'class' => 'app\modules\telemetry\Module',
-//    ];
-//    $config['modules']['users'] = [
-//        'class' => 'app\modules\users\Module',
-//    ];
-//    $config['modules']['webSocket'] = [
-//        'class' => 'app\modules\webSocket\Module',
-//    ];
-//    $config['modules']['api'] = [
-//        'class' => app\modules\api\Module::class,
-//    ];
+
 }
 
 return $config;

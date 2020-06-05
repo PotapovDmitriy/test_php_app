@@ -10,4 +10,7 @@ class TelemetryAsset extends AssetBundle
     public $js = [
         'list.js'
     ];
+    public $css = [
+        'list.css'
+    ];
 }
