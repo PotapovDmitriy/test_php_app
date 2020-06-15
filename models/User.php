@@ -12,6 +12,7 @@ use yii\web\IdentityInterface;
  * @property string|null $login
  * @property string|null $password
  * @property string|null $accessToken
+ * @property boolean|null $banned
  */
 class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
 {
@@ -33,11 +34,32 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
         $permitted_chars = '0123456789abcdefghijklmnopqrstuvwxyz';
 
         if (parent::beforeSave($insert)) {
-            $this->accessToken = substr(str_shuffle($permitted_chars), 0, 10);
+            if ($insert) {
+                $this->accessToken = substr(str_shuffle($permitted_chars), 0, 10);
+                $this->banned = false;
+            }
             return true;
         }
         return false;
     }
+
+    /**
+     * @param bool $insert
+     * @param array $changedAttributes
+     * @throws \Exception
+     */
+    public function afterSave($insert, $changedAttributes)
+    {
+
+        if ($insert) {
+            $auth = Yii::$app->authManager;
+            $editor = $auth->getRole('editor');
+            $auth->assign($editor, $this->id);
+            parent::afterSave($insert, $changedAttributes);
+        }
+
+    }
+
 
     /**
      * {@inheritdoc}
@@ -60,6 +82,7 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
             'login' => 'Login',
             'password' => 'Password',
             'accessToken' => 'Access Token',
+            'banned' => 'Is banned',
         ];
     }
 
