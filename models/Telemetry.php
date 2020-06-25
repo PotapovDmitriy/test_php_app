@@ -14,6 +14,11 @@ use Yii;
 class Telemetry extends \yii\db\ActiveRecord
 {
     /**
+     * @var mixed|null
+     */
+    private $telemetry;
+
+    /**
      * {@inheritdoc}
      */
     public static function tableName()

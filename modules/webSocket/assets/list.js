@@ -6,11 +6,12 @@ var input = document.querySelector('input[name=message]');
 
 ws.addEventListener("message", function (e) {
     console.log(e.data);
+    let json = JSON.parse(e.data);
+    let listItem = document.createElement('li');
 
-
-    var listItem = document.createElement('li');
     listItem.className = 'delayed';
-    listItem.textContent = e.data;
+    listItem.textContent = json["data"];
+
 
     list.append(listItem);
 
@@ -23,11 +24,12 @@ input.addEventListener('keyup', function (e) {
     if (e.keyCode === 13) {
 
         e.preventDefault();
-        if (e.target.value.length > 0 ){
-            ws.send(e.target.value);
+        if (e.target.value.length > 0) {
+            let json = '{"action":"put", "message":"' + e.target.value + '"}';
+            ws.send(json);
             e.target.value = "";
             e.target.focus();
-        }else{
+        } else {
             alert("Поле не должно быть пустым")
         }
 
